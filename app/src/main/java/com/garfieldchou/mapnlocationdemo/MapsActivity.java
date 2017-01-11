@@ -86,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onLocationChanged(Location location) {
 
-                Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_LONG).show();
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
@@ -101,6 +101,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (listAddresses != null && listAddresses.size() > 0) {
 
                         Log.i("PlaceInfo", listAddresses.get(0).toString());
+
+                        String address = "";
+
+                        if (listAddresses.get(0).getSubThoroughfare() != null) {
+
+                            address += listAddresses.get(0).getSubThoroughfare() + " ";
+
+                        }
+
+                        if (listAddresses.get(0).getThoroughfare() != null) {
+
+                            address += listAddresses.get(0).getThoroughfare() + ", ";
+
+                        }
+
+                        if (listAddresses.get(0).getLocality() != null) {
+
+                            address += listAddresses.get(0).getLocality() + ", ";
+
+                        }
+
+                        if (listAddresses.get(0).getPostalCode() != null) {
+
+                            address += listAddresses.get(0).getPostalCode() + ", ";
+
+                        }
+
+                        if (listAddresses.get(0).getCountryName() != null) {
+
+                            address += listAddresses.get(0).getCountryName();
+
+                        }
+
+                        Toast.makeText(MapsActivity.this, address, Toast.LENGTH_SHORT).show();
 
                     }
 
