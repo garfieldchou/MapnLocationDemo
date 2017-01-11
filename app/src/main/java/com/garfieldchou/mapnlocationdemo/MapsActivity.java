@@ -1,11 +1,17 @@
 package com.garfieldchou.mapnlocationdemo;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -70,6 +76,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         };
+
+        if(Build.VERSION.SDK_INT < 23) {
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+        } else {
+
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+            } else {
+
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+            }
+
+        }
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
