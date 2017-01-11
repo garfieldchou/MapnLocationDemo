@@ -79,6 +79,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
 
                 Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_LONG).show();
+                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
 
             }
 
